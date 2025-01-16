@@ -7,6 +7,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Setter
@@ -25,14 +28,16 @@ public class Transaction {
     @Column(name = "TRANSACTION_STATUS")
     private TransactionStatus transactionStatus;
 
+    @Column(name = "TRACKING_CODE")
+    private String trackingCode;
+
     private Long value;
 
-    @ManyToOne
-    private Account sourceAccount;
+    private String sourceAccountNumber;
+    private String destinationAccountNumber;
 
-    @ManyToOne
-    private Account destinationAccount;
-
+    @CreatedDate
+    private LocalDateTime createdAt;
 
 
 }

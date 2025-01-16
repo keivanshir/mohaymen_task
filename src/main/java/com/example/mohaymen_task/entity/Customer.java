@@ -37,7 +37,4 @@ public class Customer {
     @Column(name = "POSTAL_CODE")
     private String postalCode;
 
-    @OneToMany
-    private Set<Account> customerAccount;
-
 }

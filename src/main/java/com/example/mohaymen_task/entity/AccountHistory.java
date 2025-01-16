@@ -41,5 +41,9 @@ public class AccountHistory {
     @CreatedDate
     private LocalDateTime createdDate;
 
+    @ManyToOne
+    @JoinColumn(name = "ACCOUNT_ID")
+    private Account account;
+
 
 }

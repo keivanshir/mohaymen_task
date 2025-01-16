@@ -23,7 +23,7 @@ public class Account {
     private Long id;
 
     @Column(name = "ACCOUNT_NUMBER", unique = true) // must be 14 digits
-    private Long accountNumber; // unmodifiable
+    private String accountNumber; // unmodifiable
 
     private Long remaining; // مانده
 
@@ -36,5 +36,9 @@ public class Account {
 
     @LastModifiedDate
     private LocalDateTime modifiedDate;
+
+    @ManyToOne
+    @JoinColumn(name = "CUSTOMER_ID")
+    private Customer customer;
 
 }

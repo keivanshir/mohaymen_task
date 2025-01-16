@@ -1,9 +1,9 @@
 package com.example.mohaymen_task.dto;
 
 import com.example.mohaymen_task.entity.*;
+import org.springframework.stereotype.Component;
 
-import java.util.stream.Collectors;
-
+@Component
 public class Mapper {
 
     public AccountDto mapToAccountDto(Account account){
@@ -15,6 +15,9 @@ public class Mapper {
         accountDto.setAccountStatus(account.getAccountStatus());
         accountDto.setCreatedDate(account.getCreatedDate());
         accountDto.setModifiedDate(account.getModifiedDate());
+        if (account.getCustomer() != null){
+            accountDto.setCustomerDto(mapToCustomerDto(account.getCustomer()));
+        }
 
         return accountDto;
     }
@@ -28,6 +31,9 @@ public class Mapper {
         account.setAccountStatus(accountDto.getAccountStatus());
         account.setCreatedDate(accountDto.getCreatedDate());
         account.setModifiedDate(accountDto.getModifiedDate());
+        if (accountDto.getCustomerDto() != null){
+            account.setCustomer(mapToCustomer(accountDto.getCustomerDto()));
+        }
 
         return account;
     }
@@ -44,6 +50,9 @@ public class Mapper {
             accountHistoryDto.setCreatedBy(mapToUserDto(accountHistory.getCreatedBy()));
         }
         accountHistoryDto.setCreatedDate(accountHistory.getCreatedDate());
+        if (accountHistory.getAccount() != null){
+            accountHistoryDto.setAccount(mapToAccountDto(accountHistory.getAccount()));
+        }
 
         return accountHistoryDto;
     }
@@ -60,6 +69,9 @@ public class Mapper {
             accountHistory.setCreatedBy(mapToUser(accountHistoryDto.getCreatedBy()));
         }
         accountHistory.setCreatedDate(accountHistory.getCreatedDate());
+        if (accountHistoryDto.getAccount() != null){
+            accountHistory.setAccount(mapToAccount(accountHistoryDto.getAccount()));
+        }
 
         return accountHistory;
     }
@@ -100,12 +112,6 @@ public class Mapper {
         customerDto.setPostalCode(customer.getPostalCode());
         customerDto.setPhoneNumber(customer.getPhoneNumber());
         customerDto.setBirthOrEstablishmentDate(customer.getBirthOrEstablishmentDate());
-        if (customer.getCustomerAccount() != null){
-            customerDto.setCustomerAccount(customer.getCustomerAccount()
-                    .stream()
-                    .map(this::mapToAccountDto)
-                    .collect(Collectors.toSet()));
-        }
 
         return customerDto;
     }
@@ -120,12 +126,6 @@ public class Mapper {
         customer.setPostalCode(customerDto.getPostalCode());
         customer.setPhoneNumber(customerDto.getPhoneNumber());
         customer.setBirthOrEstablishmentDate(customerDto.getBirthOrEstablishmentDate());
-        if (customerDto.getCustomerAccount() != null){
-            customer.setCustomerAccount(customerDto.getCustomerAccount()
-                    .stream()
-                    .map(this::mapToAccount)
-                    .collect(Collectors.toSet()));
-        }
 
         return customer;
     }
@@ -135,13 +135,9 @@ public class Mapper {
         transactionDto.setId(transaction.getId());
         transactionDto.setTransactionStatus(transaction.getTransactionStatus());
         transactionDto.setTransactionType(transaction.getTransactionType());
-        if (transaction.getSourceAccount() != null){
-            transactionDto.setSourceAccount(mapToAccountDto(transaction.getSourceAccount()));
-        }
-
-        if (transaction.getDestinationAccount() != null){
-            transactionDto.setDestinationAccount(mapToAccountDto(transaction.getDestinationAccount()));
-        }
+        transactionDto.setTrackingCode(transaction.getTrackingCode());
+        transactionDto.setSourceAccountNumber(transaction.getSourceAccountNumber());
+        transactionDto.setDestinationAccountNumber(transaction.getDestinationAccountNumber());
 
         return transactionDto;
     }
@@ -151,13 +147,10 @@ public class Mapper {
         transaction.setId(transactionDto.getId());
         transaction.setTransactionStatus(transactionDto.getTransactionStatus());
         transaction.setTransactionType(transactionDto.getTransactionType());
-        if (transactionDto.getSourceAccount() != null){
-            transaction.setSourceAccount(mapToAccount(transactionDto.getSourceAccount()));
-        }
+        transaction.setTrackingCode(transactionDto.getTrackingCode());
+        transaction.setSourceAccountNumber(transactionDto.getSourceAccountNumber());
+        transaction.setDestinationAccountNumber(transactionDto.getDestinationAccountNumber());
 
-        if (transactionDto.getDestinationAccount() != null){
-            transaction.setDestinationAccount(mapToAccount(transactionDto.getDestinationAccount()));
-        }
         return transaction;
     }
 
