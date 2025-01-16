@@ -8,10 +8,9 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 @RequestMapping("api/accounts")
 public class AccountController {
 
@@ -26,7 +25,7 @@ public class AccountController {
                     @ApiResponse(responseCode = "201", description = "account created")
             })
     @PostMapping("/add")
-    public ResponseEntity<Response<AccountDto>> createAccount(@RequestBody CustomerDto customerDto){
+    public ResponseEntity<Response<AccountDto>> createAccount(@RequestBody CustomerDto customerDto) {
         return new ResponseEntity<>(accountService.createAccount(customerDto), HttpStatus.CREATED);
     }
 
@@ -36,7 +35,7 @@ public class AccountController {
                     @ApiResponse(responseCode = "404", description = "account not found")
             })
     @PutMapping("/update")
-    public ResponseEntity<Response<AccountDto>> updateAccount(@RequestBody AccountDto accountDto){
+    public ResponseEntity<Response<AccountDto>> updateAccount(@RequestBody AccountDto accountDto) {
         return new ResponseEntity<>(accountService.updateAccount(accountDto), HttpStatus.CREATED);
     }
 
@@ -46,7 +45,7 @@ public class AccountController {
                     @ApiResponse(responseCode = "404", description = "account or customer not found")
             })
     @GetMapping("/getAccountNumber")
-    public ResponseEntity<Response<String>> getAccountNumberByIdentificationNumber(@RequestParam String identificationNumber){
+    public ResponseEntity<Response<String>> getAccountNumberByIdentificationNumber(@RequestParam String identificationNumber) {
         return new ResponseEntity<>(accountService.getAccountNumberByIdentificationNumber(identificationNumber), HttpStatus.OK);
     }
 
@@ -56,7 +55,7 @@ public class AccountController {
                     @ApiResponse(responseCode = "404", description = "account or customer not found")
             })
     @GetMapping("/getCustomer")
-    public ResponseEntity<Response<AccountDto>> getCustomerByAccountNumber(@RequestParam String accountNumber){
+    public ResponseEntity<Response<AccountDto>> getCustomerByAccountNumber(@RequestParam String accountNumber) {
         return new ResponseEntity<>(accountService.getCustomerByAccountNumber(accountNumber), HttpStatus.OK);
     }
 
@@ -66,7 +65,7 @@ public class AccountController {
                     @ApiResponse(responseCode = "404", description = "account not found")
             })
     @GetMapping("/getRemainingCash")
-    public ResponseEntity<Response<String>> getRemainingCashByAccountNumber(@RequestParam String accountNumber){
+    public ResponseEntity<Response<String>> getRemainingCashByAccountNumber(@RequestParam String accountNumber) {
         return new ResponseEntity<>(accountService.getRemainingCashByAccountNumber(accountNumber), HttpStatus.OK);
     }
 
@@ -76,7 +75,7 @@ public class AccountController {
                     @ApiResponse(responseCode = "404", description = "account not found")
             })
     @DeleteMapping("/delete")
-    public ResponseEntity<Response<String>> deleteAccount(@RequestParam String accountNumber){
+    public ResponseEntity<Response<String>> deleteAccount(@RequestParam String accountNumber) {
         return new ResponseEntity<>(accountService.deleteAccount(accountNumber), HttpStatus.OK);
     }
 

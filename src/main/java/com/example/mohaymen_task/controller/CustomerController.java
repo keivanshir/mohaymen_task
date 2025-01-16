@@ -7,10 +7,9 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 @RequestMapping("api/customers")
 public class CustomerController {
 
@@ -25,7 +24,7 @@ public class CustomerController {
                     @ApiResponse(responseCode = "201", description = "customer created")
             })
     @PostMapping("/add")
-    public ResponseEntity<Response<CustomerDto>> createCustomer(@RequestBody CustomerDto customerDto){
+    public ResponseEntity<Response<CustomerDto>> createCustomer(@RequestBody CustomerDto customerDto) {
         return new ResponseEntity<>(customerService.createCustomer(customerDto), HttpStatus.CREATED);
     }
 
@@ -35,7 +34,7 @@ public class CustomerController {
                     @ApiResponse(responseCode = "404", description = "customer not found"),
             })
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Response<String>> deleteCustomer(@PathVariable Long id){
+    public ResponseEntity<Response<String>> deleteCustomer(@PathVariable Long id) {
         return new ResponseEntity<>(customerService.deleteCustomer(id), HttpStatus.OK);
     }
 

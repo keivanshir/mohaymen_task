@@ -6,16 +6,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.util.ContentCachingResponseWrapper;
-
-import java.io.UnsupportedEncodingException;
 
 @Slf4j
 @Component
 public class CustomHttpInterceptor implements HandlerInterceptor {
 
-
-    private static final int MAX_PAYLOAD_LENGTH = 1000;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {

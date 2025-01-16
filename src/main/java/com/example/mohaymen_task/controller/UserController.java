@@ -7,10 +7,9 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 @RequestMapping("api/users")
 public class UserController {
 
@@ -26,7 +25,7 @@ public class UserController {
                     @ApiResponse(responseCode = "201", description = "user created")
             })
     @PostMapping("/add")
-    public ResponseEntity<Response<UserDto>> createUser(@RequestBody UserDto userDto){
+    public ResponseEntity<Response<UserDto>> createUser(@RequestBody UserDto userDto) {
         return new ResponseEntity<>(userService.createUser(userDto), HttpStatus.CREATED);
     }
 
@@ -35,7 +34,7 @@ public class UserController {
                     @ApiResponse(responseCode = "201", description = "user updated")
             })
     @PutMapping("/update/{id}")
-    public ResponseEntity<Response<UserDto>> updateUser(@PathVariable Long id, @RequestBody UserDto userDto){
+    public ResponseEntity<Response<UserDto>> updateUser(@PathVariable Long id, @RequestBody UserDto userDto) {
         return new ResponseEntity<>(userService.updateUser(id, userDto), HttpStatus.CREATED);
     }
 
@@ -45,7 +44,7 @@ public class UserController {
                     @ApiResponse(responseCode = "404", description = "user not found")
             })
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Response<UserDto>> deleteUser(@PathVariable Long id){
+    public ResponseEntity<Response<UserDto>> deleteUser(@PathVariable Long id) {
         return new ResponseEntity<>(userService.deleteUser(id), HttpStatus.OK);
     }
 
