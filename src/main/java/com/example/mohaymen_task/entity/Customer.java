@@ -20,7 +20,7 @@ public class Customer {
 
     private String name;
 
-    @Column(name = "IDENTITFICATION_NUMBER")
+    @Column(name = "IDENTITFICATION_NUMBER", unique = true)
     private String identificationNumber;
 
     @Column(name = "BIRTH_OR_ESTABLISHMENT_DATE")

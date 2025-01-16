@@ -57,4 +57,14 @@ public class GlobalException {
 
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(IDExistsException.class)
+    public ResponseEntity<Response<String>> handleIDExistsException(IDExistsException ex){
+        Response<String> errorResponse = Response.<String>builder()
+                .statusCode(HttpStatus.BAD_REQUEST.value())
+                .message(ex.getMessage())
+                .build();
+
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
 }

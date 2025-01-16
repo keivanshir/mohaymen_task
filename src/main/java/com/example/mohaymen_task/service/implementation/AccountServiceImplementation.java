@@ -8,6 +8,7 @@ import com.example.mohaymen_task.entity.Account;
 import com.example.mohaymen_task.entity.AccountHistory;
 import com.example.mohaymen_task.entity.Customer;
 import com.example.mohaymen_task.enums.AccountStatus;
+import com.example.mohaymen_task.exception.IDExistsException;
 import com.example.mohaymen_task.exception.NotFoundException;
 import com.example.mohaymen_task.repository.AccountHistoryRepository;
 import com.example.mohaymen_task.repository.AccountRepository;
@@ -42,8 +43,9 @@ public class AccountServiceImplementation implements AccountService {
     @Override
     public Response<AccountDto> createAccount(CustomerDto customerDto) {
         Account account = new Account();
-
-        account.setCustomer(mapper.mapToCustomer(customerDto));
+        if (customerRepository.findCustomerByIdentificationNumber(customerDto.getIdentificationNumber()).isEmpty()){
+            account.setCustomer(customerRepository.save(mapper.mapToCustomer(customerDto)));
+        } else throw new IDExistsException("کد ملی یا شناسه ملی یا کد فراگیر اتباع غیر ایرانی تکراری است!");
         account.setAccountNumber(generate14DigitNumber());
         account.setAccountStatus(AccountStatus.ENABLED);
         account.setRemaining(0L);
